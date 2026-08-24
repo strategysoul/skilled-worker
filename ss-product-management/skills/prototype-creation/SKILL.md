@@ -1,6 +1,6 @@
 ---
 name: prototype-creation
-description: "Design and build a prototype that tests a product idea before it is built — pick the right fidelity, state the question it must answer, and produce a working single-file clickable HTML prototype or a wireframe spec. Use when the user asks for a prototype, mockup, clickable demo, wireframe, proof of concept, or wants to validate a feature idea cheaply before development."
+description: "Design and build a prototype that tests a product idea before it is built — takes a PRD, story, or rough idea as its source, picks the right fidelity, states the question it must answer, and produces a working single-file clickable HTML prototype or a wireframe spec. Use when the user asks to prototype a PRD or feature, wants a mockup, clickable demo, wireframe, or proof of concept, or wants to validate an idea cheaply before development."
 ---
 
 # Prototype Creation
@@ -15,15 +15,48 @@ answer that would change the plan. A prototype that cannot fail teaches nothing.
 
 ## Input Arguments
 
-- `$IDEA`: The feature or flow to prototype. Required.
-- `$QUESTION`: What must this prototype tell you? Ask if it is not given — this is
-  required before building anything.
+One source is required — a PRD is the preferred one:
+
+- `$PRD`: A PRD file, doc, or pasted text — from **prd-drafting** or anywhere else.
+  When present, this is the context. Do not re-ask for anything it already answers.
+- `$IDEA`: A feature or flow described directly, when there is no PRD.
+- `$QUESTION`: What must this prototype tell you? Derive candidates from the PRD when
+  one exists (see Step 0); otherwise ask. Required before building anything.
 - `$AUDIENCE`: Who will see it — users in a test, an exec, the eng team. Sets fidelity.
+- `$SCOPE`: Which flow or requirement to prototype, when the PRD covers several.
 
 ## Process
 
+### Step 0: Read the PRD first (when there is one)
+Pull the context out of the document rather than interviewing the user again. Map it:
+
+| From the PRD | Use it for |
+| --- | --- |
+| Problem | The situation the prototype must put the participant in |
+| Target Users | Who to recruit, and whose vocabulary the copy uses |
+| Requirements marked `P0` | The screens and interactions the prototype must contain |
+| Non-Goals | Hard boundary — these become dead ends, never features |
+| Risks and Assumptions | Candidate questions for the prototype to answer |
+| Open Questions | Candidate questions, especially design-shaped ones |
+| Success Metrics | What behavior to watch for during the test |
+| Edge cases / failure states | Whether an unhappy path deserves a screen |
+
+Then narrow to one question. If the PRD's risks and open questions suggest several,
+list the candidates with the assumption each would test and ask the user to pick one —
+do not prototype the whole PRD. If the PRD names no assumption worth testing, say so
+plainly: the honest recommendation may be to skip the prototype and write stories.
+
+Where the PRD is silent on something the prototype needs (exact copy, data shown on a
+screen, what happens after submit), make a decision, mark it in the brief under
+**Filled in beyond the PRD**, and note it as feedback for the PRD author. Never treat
+an invented detail as if the PRD specified it.
+
+If the input is a *story* rather than a PRD, use its acceptance criteria the same way
+`P0` requirements are used above.
+
 ### Step 1: Name the riskiest assumption
-Ask which category the doubt sits in, because it decides the format:
+Classify the chosen assumption — from the PRD's risk list where you have one, by
+asking where you do not. The category decides the format:
 
 - **Value** — will they want it? → landing page, concept description, fake door
 - **Usability** — can they figure it out? → clickable flow with real copy
@@ -68,15 +101,23 @@ change the idea. Without this, the prototype degrades into a demo.
 ```
 ## Prototype Brief: [Name]
 
+**Source**: [PRD name/path and the sections used, or "no PRD — described directly"]
 **Question this answers**: [one sentence]
 **Riskiest assumption**: [assumption] — [Value/Usability/Feasibility/Viability]
+  — [PRD section it came from, if any]
 **Fidelity**: [level] — [why this level and not higher]
 
 ### Flow
 1. [Screen] → [action] → [Screen]
 
+Covers PRD requirements: [list the `P0` items this flow exercises]
+Deliberately excluded: [PRD non-goals and out-of-scope requirements]
+
 ### What is fake
 - [Hardcoded data, stubbed behavior, dead ends]
+
+### Filled in beyond the PRD
+- [Detail invented to make the prototype usable] — [flag back to the PRD author]
 
 ### Test plan
 - **Task for the participant**: "[task, phrased without hints]"
@@ -90,6 +131,9 @@ Then the artifact itself: a single `.html` file, or the wireframe spec.
 ## Quality Bar
 
 - The question is written down before the prototype exists.
+- When a PRD was supplied, nothing already answered in it was asked of the user again.
+- Every screen traces to a `P0` requirement, and no non-goal appears as a feature.
+- Anything invented beyond the PRD is listed as invented, not presented as spec.
 - Content is realistic; no placeholder text anywhere a participant will look.
 - The file opens directly in a browser with no server and no network access.
 - What is fake is documented, so nobody mistakes the prototype for a working feature.
@@ -97,7 +141,11 @@ Then the artifact itself: a single `.html` file, or the wireframe spec.
 
 ## Notes
 
-- Resist scope creep into a second flow. One question per prototype.
+- Resist scope creep into a second flow. One question per prototype, even when the PRD
+  describes five. A PRD is a scope document; a prototype is a probe.
+- A prototype often exposes gaps in the PRD. Report them at the end so they can be
+  folded back in via **prd-drafting** — that feedback is half the value of doing this
+  before development.
 - Never present a prototype as shippable code. It is throwaway by design and should be
   written that way rather than half-engineered.
 - If the answer is already known, skip the prototype and write the story instead —

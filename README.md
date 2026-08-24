@@ -24,7 +24,7 @@ framework, the same output shape, every time you ask.
 | --- | --- |
 | `prd-drafting` | A PRD: problem, users, goals, scoped requirements, success metrics, open questions |
 | `user-story-creation` | Vertically sliced stories with Given/When/Then criteria, INVEST-checked and sequenced |
-| `prototype-creation` | A prototype brief plus a single-file clickable HTML prototype or wireframe spec |
+| `prototype-creation` | Takes a PRD (or story) as context and produces a prototype brief plus a single-file clickable HTML prototype or wireframe spec |
 | `testing-scenarios` | A prioritized test pass: happy paths, boundaries, failures, permissions, state transitions |
 | `bug-report` | A reproducible bug report with expected vs actual, evidence, and separate severity/priority |
 
