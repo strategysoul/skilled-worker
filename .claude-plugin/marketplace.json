@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skilled-worker",
-  "version": "0.2.0",
-  "description": "Structured AI workflows for knowledge workers — product management, job search, resume optimization, and AI learning. Each plugin bundles reusable skills and slash-command workflows.",
+  "version": "0.3.0",
+  "description": "Structured AI workflows for knowledge workers \u2014 product management, job search, resume optimization, and AI learning. Each plugin bundles reusable skills and slash-command workflows.",
   "owner": {
     "name": "Sweta",
     "url": "https://github.com/strategysoul"
@@ -28,7 +28,7 @@
     },
     {
       "name": "ss-ai-learning",
-      "description": "AI learning skills: structured study plans, concept explainers, and hands-on practice workflows for learning AI and LLM tooling.",
+      "description": "AI learning skills: study plans, concept explainers, hands-on practice projects, tool and model evaluations, and research digests for keeping up.",
       "source": "./ss-ai-learning",
       "category": "learning"
     }

@@ -7,9 +7,9 @@ Generic prompting gives you text. A skill gives you a repeatable process: the sa
 framework, the same output shape, every time you ask. Ask for a PRD and you get the
 same nine sections, with the questions you skipped marked as skipped, every time.
 
-**Early days — one plugin works today.** `ss-product-management` has five skills and a
-command. The other three plugins are published as empty scaffolds so the structure is
-visible; they install cleanly but do nothing yet. Watch or star the repo if you want
+**Early days — two plugins work today.** `ss-product-management` and `ss-ai-learning`
+have five skills each. The other two are published as empty scaffolds so the structure
+is visible; they install cleanly but do nothing yet. Watch or star the repo if you want
 to know when they land.
 
 ## Plugins
@@ -19,7 +19,7 @@ to know when they land.
 | `ss-product-management` | PRDs, user stories, prototypes, test scenarios, bug reports | **5 skills, 1 command** |
 | `ss-job-search` | Role targeting, company research, applications, interview prep | Planned — empty |
 | `ss-resume` | Resume review, tailoring to a job description, impact bullets | Planned — empty |
-| `ss-ai-learning` | Study plans, concept explainers, hands-on practice workflows | Planned — empty |
+| `ss-ai-learning` | Study plans, concept explainers, practice projects, tool evaluations, research digests | **5 skills** |
 
 ### `ss-product-management` skills
 
@@ -87,6 +87,24 @@ of them gets the other invented later, differently.
 
 Everything downstream reads that walkthrough. Stories slice it, tests verify it,
 prototypes render it — and each one reports back what the PRD got wrong.
+
+### `ss-ai-learning` skills
+
+For three overlapping situations: learning AI well enough to make decisions about it,
+learning to build with it, and keeping up without drowning.
+
+| Skill | Produces |
+| --- | --- |
+| `ai-study-plan` | A learning path with a demonstrable capability target, an artifact per unit, and a stopping rule |
+| `ai-concept-explainer` | An explanation pitched at the decision behind the question, with the mechanism, the failure modes, and where the analogy breaks |
+| `ai-practice-project` | A hands-on project scoped to the hours available, with milestones, what to observe at each, and spend guardrails |
+| `ai-tool-evaluation` | An adopt/pass/pilot decision with criteria set before testing, measured against your own data and a real baseline |
+| `ai-research-digest` | A paper or release cut down to the claim, the evidence, what is genuinely new, and act/watch/ignore |
+
+The through-line: none of them let you mistake reading for capability. Study units are
+done when an artifact exists, projects tell you what to *look at* rather than what to
+build, evaluations set thresholds before the demo, and digests are allowed to conclude
+"this changes nothing for you".
 
 ## Skills vs. commands
 
