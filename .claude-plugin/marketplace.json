@@ -9,27 +9,27 @@
   },
   "plugins": [
     {
-      "name": "sw-product-management",
+      "name": "product-management",
       "description": "Product management skills: discovery, strategy, requirements, prioritization, and delivery workflows.",
-      "source": "./sw-product-management",
+      "source": "./product-management",
       "category": "product-management"
     },
     {
-      "name": "sw-job-search",
+      "name": "job-search",
       "description": "Job search skills: role targeting, company research, application tracking, and interview preparation.",
-      "source": "./sw-job-search",
+      "source": "./job-search",
       "category": "career"
     },
     {
-      "name": "sw-resume",
+      "name": "resume",
       "description": "Resume and profile optimization skills: resume review, tailoring to a job description, and impact-driven bullet writing.",
-      "source": "./sw-resume",
+      "source": "./resume",
       "category": "career"
     },
     {
-      "name": "sw-ai-learning",
+      "name": "ai-learning",
       "description": "AI learning skills: structured study plans, concept explainers, and hands-on practice workflows for learning AI and LLM tooling.",
-      "source": "./sw-ai-learning",
+      "source": "./ai-learning",
       "category": "learning"
     }
   ]

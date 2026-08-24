@@ -2,8 +2,8 @@
 
 ## Add a skill
 
-1. Pick the right plugin (`sw-product-management`, `sw-job-search`, `sw-resume`,
-   `sw-ai-learning`). If none fits, add a new plugin — see below.
+1. Pick the right plugin (`product-management`, `job-search`, `resume`,
+   `ai-learning`). If none fits, add a new plugin — see below.
 2. Create the directory and copy the template:
 
    ```bash

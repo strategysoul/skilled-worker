@@ -10,10 +10,10 @@ framework, the same output shape, every time you ask.
 
 | Plugin | What it covers |
 | --- | --- |
-| `sw-product-management` | Discovery, strategy, requirements, prioritization, delivery |
-| `sw-job-search` | Role targeting, company research, applications, interview prep |
-| `sw-resume` | Resume review, tailoring to a job description, impact bullets |
-| `sw-ai-learning` | Study plans, concept explainers, hands-on practice workflows |
+| `product-management` | Discovery, strategy, requirements, prioritization, delivery |
+| `job-search` | Role targeting, company research, applications, interview prep |
+| `resume` | Resume review, tailoring to a job description, impact bullets |
+| `ai-learning` | Study plans, concept explainers, hands-on practice workflows |
 
 > Status: **skeleton**. The structure, manifests, and templates are in place; the
 > skills themselves are still to be written.
@@ -38,16 +38,16 @@ should point at it.
 Skilled_worker/
 ├── .claude-plugin/
 │   └── marketplace.json          # every plugin listed here, or it doesn't install
-├── sw-product-management/
+├── product-management/
 │   ├── .claude-plugin/
 │   │   └── plugin.json           # name, version, description, keywords, license
 │   ├── skills/
 │   │   └── <skill-name>/SKILL.md
 │   └── commands/
 │       └── <command-name>.md
-├── sw-job-search/                # same shape
-├── sw-resume/                    # same shape
-├── sw-ai-learning/               # same shape
+├── job-search/                # same shape
+├── resume/                    # same shape
+├── ai-learning/               # same shape
 ├── templates/                    # copy these when adding a skill or command
 │   ├── SKILL.md
 │   └── COMMAND.md
@@ -59,8 +59,8 @@ Skilled_worker/
 ## Adding a skill
 
 ```bash
-mkdir -p sw-resume/skills/tailor-to-job
-cp templates/SKILL.md sw-resume/skills/tailor-to-job/SKILL.md
+mkdir -p resume/skills/tailor-to-job
+cp templates/SKILL.md resume/skills/tailor-to-job/SKILL.md
 ```
 
 Fill in the template, then validate:
@@ -80,7 +80,7 @@ claude plugin marketplace add <your-github-user>/Skilled_worker
 ```
 
 ```bash
-claude plugin install sw-resume@skilled-worker
+claude plugin install resume@skilled-worker
 ```
 
 Claude Cowork: **Customize → Browse Plugins → Add Marketplace from GitHub**, then
