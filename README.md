@@ -23,7 +23,7 @@ framework, the same output shape, every time you ask.
 | Skill | Produces |
 | --- | --- |
 | `prd-drafting` | A PRD: problem, users, goals, a two-lane flow walkthrough (what the user sees / how data moves), scoped requirements, metrics, open questions |
-| `user-story-creation` | Vertically sliced stories with Given/When/Then criteria, INVEST-checked and sequenced |
+| `user-story-creation` | Takes a PRD (or feature) and produces vertically sliced stories with Given/When/Then criteria, INVEST-checked, sequenced, and traced back to requirements |
 | `prototype-creation` | Takes a PRD (or story) as context and produces a prototype brief plus a single-file clickable HTML prototype or wireframe spec |
 | `testing-scenarios` | Takes a PRD (or story) and produces a prioritized test pass — happy paths, boundaries, failures, permissions, state transitions — with a traceability table |
 | `bug-report` | A reproducible bug report with expected vs actual, evidence, and separate severity/priority |

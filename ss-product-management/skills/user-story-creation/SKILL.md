@@ -1,6 +1,6 @@
 ---
 name: user-story-creation
-description: "Break a feature, PRD, or epic into user stories with acceptance criteria — INVEST-checked, vertically sliced, with Given/When/Then criteria and estimates. Use when the user asks for user stories, backlog items, tickets, acceptance criteria, how to split an epic, or help turning requirements into sprint-ready work."
+description: "Break a PRD, feature, or epic into user stories with acceptance criteria — vertically sliced, INVEST-checked, with Given/When/Then criteria, sizes, and traceability back to the source spec. Use when the user asks to turn a PRD into stories, wants user stories, backlog items, tickets, acceptance criteria, help splitting an epic, or help making requirements sprint-ready."
 ---
 
 # User Story Creation
@@ -17,15 +17,58 @@ learn, and stop early if the next slice is not worth it.
 
 ## Input Arguments
 
-- `$FEATURE`: The feature, PRD, or epic to break down. Required.
-- `$USER_TYPES`: Known personas or roles. Infer from the feature if not supplied.
+One source is required — a PRD is the preferred one:
+
+- `$PRD`: A PRD file, doc, or pasted text — from **prd-drafting** or anywhere else.
+  When present, this is the source of scope, priority, and acceptance detail.
+- `$FEATURE`: A feature or epic described directly, when there is no PRD.
+- `$USER_TYPES`: Known personas or roles. Take from the PRD's Target Users if present.
 - `$TEAM_CONTEXT`: Sprint length, estimation scale, existing conventions. Optional.
+- `$RELEASE`: Which slice to break down — e.g. `P0` only. Ask when the PRD is large.
 
 ## Process
 
+### Step 0: Read the PRD as a source of scope, not of slicing
+
+| From the PRD | Use it for |
+| --- | --- |
+| Target Users (2) | The `As a [role]` clause — use the PRD's segment, not "a user" |
+| Goals (3) | The `so that` clause — the outcome each story serves |
+| Non-Goals (4) | Explicit out-of-scope lines on stories that would otherwise creep |
+| Flow Walkthrough (6.1) | The journey to slice — and what each story must leave working |
+| Data contract (6.2) | Field-level acceptance criteria: required, validation, rejection |
+| States and notifications (6.3) | Criteria for what the user sees and is told at each stage |
+| Failure and recovery (6.4) | Error-handling stories, and their data-state criteria |
+| Requirements `[P0]`/`[P1]`/`[P2]` (7) | What is in this release, and story sequencing |
+| Success Metrics (8) | Instrumentation criteria — the event must fire, or the metric is fiction |
+| Open Questions (10) | Blockers. A story resting on an open question is not ready |
+
+**The trap: a walkthrough step is not a story.** The walkthrough is one continuous
+system sequence; `S1`–`S5` of an onboarding flow is most likely a *single* story, not
+five. Slicing per step produces exactly the horizontal slices this skill exists to
+prevent — "build the form", "build the submit", "build the notification" — none of
+which can ship alone. Read the walkthrough as *one* journey, then slice it by the
+seams in Step 2: which users, which rules, which paths ship first.
+
+Two things override the PRD rather than following it:
+
+- **Priority is an input to sequencing, not a slicing rule.** A story may legitimately
+  contain a `P0` requirement and a `P1` one if splitting them would leave the product
+  broken between them. Say so on the story instead of splitting to match the labels.
+- **`[PROPOSED]` details are not acceptance criteria.** Write criteria against
+  observable behavior. If the PRD says `[PROPOSED: queued job]`, the criterion is that
+  the user sees a pending state and the account becomes active — not that a queue exists.
+
+Where the PRD is silent on something a story needs, write the criterion you believe is
+right, mark it `[ASSUMED]`, and list it for the PRD author. Do not present an
+assumption as a requirement.
+
+If there is no PRD, start at Step 1 and derive the journey yourself.
+
 ### Step 1: Identify the user journey
 List the steps a user takes from trigger to outcome. Stories come from steps in this
-journey, never from architecture layers.
+journey, never from architecture layers. With a PRD, this is section 6.1 — read it
+whole before slicing.
 
 ### Step 2: Slice vertically
 Each story crosses the whole stack and produces observable value. Reject slices like
@@ -69,6 +112,8 @@ the product in a shippable state.
 ```
 # Stories: [Feature Name]
 
+**Source**: [PRD name/path, or described directly] | **Release slice**: [e.g. P0 only]
+
 ## Story 1: [Short title]
 **As a** [specific role]
 **I want** [capability]
@@ -82,12 +127,26 @@ the product in a shippable state.
 **Out of scope**: [what this story deliberately does not do]
 **Depends on**: [story number, or None]
 **Size**: [S/M/L or points] — [one-line rationale]
+**Traces to**: [S1-S3, `[P0]` requirement, 6.2 `email`] — [priority inherited]
 
 [repeat per story]
 
 ## Sequencing
 1. [Story] — [why first]
 2. [...]
+
+## Traceability
+| Spec item | Story | Status |
+| --- | --- | --- |
+| `[P0]` [requirement] | 1 | covered |
+| S4 | 2 | covered |
+| `[P1]` [requirement] | — | **deferred** — [to which release] |
+
+## Assumptions made
+- `[ASSUMED]` [criterion written where the PRD was silent] — [for the PRD author]
+
+## Blocked by open questions
+- [Story] — depends on [PRD open question], needed by [date]
 
 ## Deferred
 - [Thing pulled out of scope, and which story it should become]
@@ -100,11 +159,23 @@ the product in a shippable state.
 - Acceptance criteria contain no unverifiable claims like "should be user-friendly".
 - Dependencies are stated; a story depending on three others needs re-slicing.
 - If every story comes out size L, the slicing failed — split again.
+- When a PRD was supplied: every `P0` requirement and every walkthrough step is in the
+  traceability table, either covered by a story or explicitly deferred with a reason.
+- Story count is not walkthrough-step count. If they match exactly, check that you
+  sliced the journey rather than transcribing it.
+- Criteria assert behavior, never a `[PROPOSED]` mechanism.
+- Anything invented past the PRD is tagged `[ASSUMED]` and listed, not passed off as
+  requirement.
 
 ## Notes
 
-- If the input is a PRD, keep requirement priorities (`P0`/`P1`) attached to the
-  stories they produce, so later scope cuts stay traceable.
+- Keep requirement priorities attached to the stories they produce, so later scope
+  cuts stay traceable in both directions.
+- A PRD gives you scope, not slices. The scope decision was the PM's; the slicing
+  decision belongs to this skill and the team, and it is where the value is added.
+- Stories that would be blocked by a PRD open question are worth writing anyway — as
+  long as the blocker is named. A blocked story that looks ready gets pulled into a
+  sprint and stalls there.
 - Spikes are legitimate stories when something is not estimable, but they need a
   timebox and a stated question to answer.
 - Hand acceptance criteria to **testing-scenarios** to expand into a full test pass.
