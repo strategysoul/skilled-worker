@@ -4,19 +4,22 @@ A plugin marketplace of structured AI workflows for knowledge workers — built 
 [Claude Code](https://claude.com/claude-code) and Claude Cowork.
 
 Generic prompting gives you text. A skill gives you a repeatable process: the same
-framework, the same output shape, every time you ask.
+framework, the same output shape, every time you ask. Ask for a PRD and you get the
+same nine sections, with the questions you skipped marked as skipped, every time.
+
+**Early days — one plugin works today.** `ss-product-management` has five skills and a
+command. The other three plugins are published as empty scaffolds so the structure is
+visible; they install cleanly but do nothing yet. Watch or star the repo if you want
+to know when they land.
 
 ## Plugins
 
-| Plugin | What it covers |
-| --- | --- |
-| `ss-product-management` | PRDs, user stories, prototypes, test scenarios, bug reports — **5 skills** |
-| `ss-job-search` | Role targeting, company research, applications, interview prep |
-| `ss-resume` | Resume review, tailoring to a job description, impact bullets |
-| `ss-ai-learning` | Study plans, concept explainers, hands-on practice workflows |
-
-> Status: **in progress**. `ss-product-management` has its first five skills; the
-> other three plugins are still skeletons.
+| Plugin | What it covers | Status |
+| --- | --- | --- |
+| `ss-product-management` | PRDs, user stories, prototypes, test scenarios, bug reports | **5 skills, 1 command** |
+| `ss-job-search` | Role targeting, company research, applications, interview prep | Planned — empty |
+| `ss-resume` | Resume review, tailoring to a job description, impact bullets | Planned — empty |
+| `ss-ai-learning` | Study plans, concept explainers, hands-on practice workflows | Planned — empty |
 
 ### `ss-product-management` skills
 
@@ -36,6 +39,54 @@ pass all read it directly; the test pass feeds bug reports.
 | Command | Runs |
 | --- | --- |
 | `/spec-feature` | The full chain — PRD, prototype, stories, test pass — stopping for review after each artifact |
+
+## Installing
+
+Claude Code CLI:
+
+```bash
+claude plugin marketplace add strategysoul/skilled-worker
+```
+
+```bash
+claude plugin install ss-product-management@skilled-worker
+```
+
+Claude Cowork: **Customize → Browse Plugins → Add Marketplace from GitHub**, then
+enter the same `strategysoul/skilled-worker`.
+
+Working on the skills themselves? Clone the repo and add it as a local marketplace by
+path instead — your edits then apply after `claude plugin marketplace update
+skilled-worker`, with no push required.
+
+## Using it
+
+Skills load on their own when what you ask matches what they do. You don't name them:
+
+> "Write up a PRD for letting agencies onboard sub-accounts"
+> "Turn this PRD into stories"
+> "How should we test this before release?"
+> "Something's broken — the submit button spins forever"
+
+The command is explicit, and runs the whole chain with a review stop after each piece:
+
+```
+/spec-feature onboarding form for new agency accounts
+```
+
+It goes problem framing → PRD → prototype → stories → test pass, writing each artifact
+to `specs/<feature>/` so you can edit them independently.
+
+### What makes these different from a prompt
+
+The PRD skill produces a **two-lane flow walkthrough**: one numbered sequence showing
+what the user sees beside what the system does with the data — payload, states,
+failure handling, what is persisted. "Account creation in progress" and
+`status=pending` are the same fact in two vocabularies, and a spec containing only one
+of them gets the other invented later, differently.
+
+Everything downstream reads that walkthrough. Stories slice it, tests verify it,
+prototypes render it — and each one reports back what the PRD got wrong.
 
 ## Skills vs. commands
 
@@ -90,23 +141,21 @@ python validate_plugins.py
 
 The directory name and the frontmatter `name` must match — the validator enforces it.
 
-## Installing (once published to GitHub)
+## Contributing
 
-Claude Code CLI:
+Issues and pull requests are welcome — especially reports that a skill *didn't fire*
+when it should have. A skill loads based on its `description` alone, so a description
+that doesn't match how people actually phrase things is the most common defect here,
+and it's invisible to the author.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add a skill, and
+[CLAUDE.md](CLAUDE.md) for the writing conventions this repo follows.
+
+Structure is checked in CI:
 
 ```bash
-claude plugin marketplace add <your-github-user>/skilled-worker
+python validate_plugins.py
 ```
-
-```bash
-claude plugin install ss-resume@skilled-worker
-```
-
-Claude Cowork: **Customize → Browse Plugins → Add Marketplace from GitHub**, then
-enter the same `<user>/skilled-worker`.
-
-To use a plugin locally before publishing, point Claude Code at this directory as a
-local marketplace instead of the GitHub path.
 
 ## License
 

@@ -1,11 +1,11 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skilled-worker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Structured AI workflows for knowledge workers — product management, job search, resume optimization, and AI learning. Each plugin bundles reusable skills and slash-command workflows.",
   "owner": {
     "name": "Sweta",
-    "email": "swetakumaripm@gmail.com"
+    "url": "https://github.com/strategysoul"
   },
   "plugins": [
     {
