@@ -35,7 +35,7 @@ should point at it.
 ## Repository layout
 
 ```
-Skilled_worker/
+skilled-worker/
 ├── .claude-plugin/
 │   └── marketplace.json          # every plugin listed here, or it doesn't install
 ├── ss-product-management/
@@ -76,7 +76,7 @@ The directory name and the frontmatter `name` must match — the validator enfor
 Claude Code CLI:
 
 ```bash
-claude plugin marketplace add <your-github-user>/Skilled_worker
+claude plugin marketplace add <your-github-user>/skilled-worker
 ```
 
 ```bash
@@ -84,7 +84,7 @@ claude plugin install ss-resume@skilled-worker
 ```
 
 Claude Cowork: **Customize → Browse Plugins → Add Marketplace from GitHub**, then
-enter the same `<user>/Skilled_worker`.
+enter the same `<user>/skilled-worker`.
 
 To use a plugin locally before publishing, point Claude Code at this directory as a
 local marketplace instead of the GitHub path.
