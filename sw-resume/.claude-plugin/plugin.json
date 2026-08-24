@@ -1,0 +1,11 @@
+{
+  "name": "sw-resume",
+  "version": "0.1.0",
+  "description": "Resume and profile optimization skills: resume review, tailoring to a job description, and impact-driven bullet writing.",
+  "author": {
+    "name": "Sweta",
+    "email": "swetakumaripm@gmail.com"
+  },
+  "keywords": ["resume", "cv", "career", "linkedin", "ats"],
+  "license": "MIT"
+}

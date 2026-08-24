@@ -1,0 +1,11 @@
+{
+  "name": "sw-product-management",
+  "version": "0.1.0",
+  "description": "Product management skills: discovery, strategy, requirements, prioritization, and delivery workflows.",
+  "author": {
+    "name": "Sweta",
+    "email": "swetakumaripm@gmail.com"
+  },
+  "keywords": ["product-management", "discovery", "strategy", "prd", "prioritization"],
+  "license": "MIT"
+}

@@ -1,0 +1,15 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local scratch — drafts that aren't ready to be skills yet
+scratch/
+*.local.md
