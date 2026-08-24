@@ -28,8 +28,14 @@ framework, the same output shape, every time you ask.
 | `testing-scenarios` | Takes a PRD (or story) and produces a prioritized test pass — happy paths, boundaries, failures, permissions, state transitions — with a traceability table |
 | `bug-report` | A reproducible bug report with expected vs actual, evidence, and separate severity/priority |
 
-They chain in that order: a PRD feeds stories, stories feed the prototype and the test
-pass, and the test pass feeds bug reports.
+They chain in that order: the PRD is the spine, and the prototype, stories, and test
+pass all read it directly; the test pass feeds bug reports.
+
+### `ss-product-management` commands
+
+| Command | Runs |
+| --- | --- |
+| `/spec-feature` | The full chain — PRD, prototype, stories, test pass — stopping for review after each artifact |
 
 ## Skills vs. commands
 
