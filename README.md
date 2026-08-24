@@ -10,13 +10,26 @@ framework, the same output shape, every time you ask.
 
 | Plugin | What it covers |
 | --- | --- |
-| `ss-product-management` | Discovery, strategy, requirements, prioritization, delivery |
+| `ss-product-management` | PRDs, user stories, prototypes, test scenarios, bug reports — **5 skills** |
 | `ss-job-search` | Role targeting, company research, applications, interview prep |
 | `ss-resume` | Resume review, tailoring to a job description, impact bullets |
 | `ss-ai-learning` | Study plans, concept explainers, hands-on practice workflows |
 
-> Status: **skeleton**. The structure, manifests, and templates are in place; the
-> skills themselves are still to be written.
+> Status: **in progress**. `ss-product-management` has its first five skills; the
+> other three plugins are still skeletons.
+
+### `ss-product-management` skills
+
+| Skill | Produces |
+| --- | --- |
+| `prd-drafting` | A PRD: problem, users, goals, scoped requirements, success metrics, open questions |
+| `user-story-creation` | Vertically sliced stories with Given/When/Then criteria, INVEST-checked and sequenced |
+| `prototype-creation` | A prototype brief plus a single-file clickable HTML prototype or wireframe spec |
+| `testing-scenarios` | A prioritized test pass: happy paths, boundaries, failures, permissions, state transitions |
+| `bug-report` | A reproducible bug report with expected vs actual, evidence, and separate severity/priority |
+
+They chain in that order: a PRD feeds stories, stories feed the prototype and the test
+pass, and the test pass feeds bug reports.
 
 ## Skills vs. commands
 
