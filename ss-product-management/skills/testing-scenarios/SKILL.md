@@ -27,6 +27,12 @@ most defects live.
 List every distinct behavior the spec promises. One claim can produce several
 scenarios; a claim producing none means it was written unverifiably — flag it back.
 
+If the spec is a PRD with a Flow Walkthrough, it is the richest source you will get:
+each step is a scenario, the data contract gives you the boundary inputs, the states
+table gives you what to assert at each stage, and the failure table is a ready-made
+error-handling section — verify each of its "data left in" claims rather than assuming
+it. Cite step IDs (`S3`) in your scenarios so coverage is traceable both ways.
+
 ### Step 2: Cover the happy paths
 The primary success flow, plus each legitimate variation (different roles, entry
 points, or valid input shapes that take a different route through the system).

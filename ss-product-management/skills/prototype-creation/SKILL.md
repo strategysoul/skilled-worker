@@ -34,6 +34,8 @@ Pull the context out of the document rather than interviewing the user again. Ma
 | --- | --- |
 | Problem | The situation the prototype must put the participant in |
 | Target Users | Who to recruit, and whose vocabulary the copy uses |
+| Flow Walkthrough (6.1) | The screen sequence, near enough one-to-one with the steps |
+| States and notifications (6.3) | What the prototype shows during waits — do not skip these |
 | Requirements marked `P0` | The screens and interactions the prototype must contain |
 | Non-Goals | Hard boundary — these become dead ends, never features |
 | Risks and Assumptions | Candidate questions for the prototype to answer |
