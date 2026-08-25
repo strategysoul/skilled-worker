@@ -96,6 +96,31 @@ last step runs the stories and scenarios back through the prototype, so the chai
 by telling you what the PRD got wrong rather than handing you four documents that agree
 with each other because nothing ever tested them.
 
+```mermaid
+flowchart TD
+    IDEA([feature idea]) --> S0["<b>Step 0</b><br/>create specs/[slug]/"]
+    S0 --> S1["<b>Step 1</b> · framing.md<br/><i>is this the right problem?</i>"]
+    S1 --> S2["<b>Step 2</b> · PRD.md<br/><i>two-lane flow walkthrough</i>"]
+    S2 --> S3["<b>Step 3</b> · prototype.html<br/><i>riskiest flow only</i>"]
+    S3 --> S4["<b>Step 4</b> · stories.md<br/><i>vertically sliced</i>"]
+    S4 --> S5["<b>Step 5</b> · test-scenarios.md<br/><i>traced to the spec</i>"]
+    S5 --> S6{{"<b>Step 6</b> · verification.md<br/>fresh context — a subagent<br/>walks every P0 scenario"}}
+    S6 --> S7["<b>Step 7</b> · README.md<br/><i>spec pack · what is ready to start</i>"]
+
+    S6 -. "<b>PROTO-BUG</b><br/>fix and re-verify" .-> S3
+    S6 -. "<b>SPEC-GAP</b><br/>a decision, not a fix" .-> S2
+    S6 -. "<b>TEST-DEFECT</b><br/>the scenario is wrong" .-> S5
+
+    classDef verify stroke-width:2px
+    class S6 verify
+```
+
+Solid arrows are the chain, and every one of them is a checkpoint — the artifact is
+shown and a decision taken before the next is built on it. The dotted arrows are the
+point of the whole thing: Step 6 is the first time anything executes the spec, and each
+failure it finds goes back to whoever owns it. `SPEC-GAP` is the valuable one, and it
+returns to the PRD as a *question*, never as a fix applied downstream.
+
 Every run makes a folder first and writes each artifact into it as that artifact is
 produced:
 
