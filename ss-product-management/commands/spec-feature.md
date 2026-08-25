@@ -1,6 +1,6 @@
 ---
-description: Take a feature idea from problem statement to PRD, prototype, stories, and a test pass, then run the spec back through the prototype and fix what fails — with a checkpoint after each artifact
-argument-hint: "<feature idea, problem statement, or path to notes>"
+description: Take a feature idea from problem statement to PRD, prototype, stories, and a test pass, then run the spec back through the prototype and fix what fails — every artifact written into one spec folder, with a checkpoint after each
+argument-hint: "<feature idea, problem statement, path to notes, or existing specs/ folder to resume>"
 ---
 
 # /spec-feature -- Idea to Sprint-Ready Spec
@@ -18,8 +18,13 @@ nobody has executed; Step 6 executes it, and what comes back goes into the PRD.
 ```
 /spec-feature onboarding form for new agency accounts
 /spec-feature ./notes/kickoff-2026-08.md
+/spec-feature ./specs/agency-sub-account-onboarding    # resume an existing spec
 /spec-feature [paste a rough problem statement]
 ```
+
+Every run works in one folder — `specs/<feature-slug>/` — created in Step 0 and holding
+every artifact the chain produces. Pointing the command at an existing spec folder
+resumes that spec instead of starting a new one.
 
 ## Why this is checkpointed
 
@@ -32,6 +37,30 @@ run the whole chain silently and present four documents at the end.
 
 ## Workflow
 
+### Step 0: Make the spec folder
+
+Before producing anything, create one directory for this feature and tell the user its
+path. Everything the chain writes goes in it.
+
+1. Derive a kebab-case slug from the feature — `agency-sub-account-onboarding`, not
+   `spec1` or `new-feature`. Name the feature, not the artifact type.
+2. Check whether `specs/<slug>/` already exists.
+   - **It does not** → create it, and say where it is.
+   - **It does** → this is a resume, not a new spec. List what is already in it and
+     which step that corresponds to, then continue from there. Never overwrite an
+     existing artifact without showing what would change, and never start a second
+     folder for the same feature because the first one is inconvenient.
+3. If the slug is ambiguous — the feature could reasonably belong to an existing
+   folder — ask which before creating anything.
+
+Default to `specs/` under the current working directory. Ask before writing anywhere
+else, and never write outside the project without being told to.
+
+Then write each artifact into that folder **as it is produced**, at its own checkpoint —
+not batched at the end. The chain is long and checkpointed; if the session ends at Step
+4, everything through Step 3 must already be on disk. Nothing lives only in the
+conversation.
+
 ### Step 1: Frame the problem
 
 Apply the **prd-drafting** skill, but do not draft yet. First produce only:
@@ -43,7 +72,9 @@ Apply the **prd-drafting** skill, but do not draft yet. First produce only:
 Show this and ask: *is this the right problem?* If the input was a solution ("build a
 form"), this is where the misunderstanding surfaces — cheaply.
 
-**Checkpoint.** Do not proceed until the framing is confirmed or corrected.
+**Checkpoint.** Do not proceed until the framing is confirmed or corrected. Then write
+the confirmed version to `framing.md` — as agreed, not as first drafted — so the rest of
+the chain has something to trace back to.
 
 ### Step 2: Draft the PRD
 
@@ -151,7 +182,10 @@ this step exists.
 
 ### Step 7: Close the loop
 
-Summarize what came back from the chain that the PRD did not know at the start:
+Summarize what came back from the chain that the PRD did not know at the start, and
+write this block to `specs/<slug>/README.md` as well as showing it. The folder should
+state its own status; a spec pack whose state lives only in a finished conversation has
+to be reconstructed by whoever opens it next.
 
 ```
 ## Spec pack: [Feature]
@@ -177,24 +211,37 @@ Summarize what came back from the chain that the PRD did not know at the start:
 
 ## Output Files
 
-Write each artifact to its own file so it can be reviewed, edited, and versioned:
+One folder per feature, created in Step 0, holding every artifact the chain produces —
+each written at the step that produces it, never batched at the end:
 
 ```
-specs/<feature-slug>/PRD.md
-specs/<feature-slug>/prototype.html
-specs/<feature-slug>/prototype-brief.md
-specs/<feature-slug>/stories.md
-specs/<feature-slug>/test-scenarios.md
-specs/<feature-slug>/verification.md
+specs/<feature-slug>/
+├── README.md              # Step 7 — the spec pack table; what exists and its state
+├── framing.md             # Step 1 — the confirmed problem, user, and scope
+├── PRD.md                 # Step 2
+├── prototype.html         # Step 3, edited in place through Step 6
+├── prototype-brief.md     # Step 3 — question, fidelity, what is fake, what is excluded
+├── stories.md             # Step 4
+├── test-scenarios.md      # Step 5
+└── verification.md        # Step 6 — coverage, results, findings, round log
 ```
 
-The brief is a file rather than a message because Step 6 reads it from a cold context:
-it is what declares which gaps are deliberate, and a verifier that cannot see it reports
-every intentional dead end as a defect.
+Three of these are files for a reason rather than by convention:
+
+- **`framing.md`** — Step 1 is the cheapest correction in the chain, and it is worth
+  nothing if the agreed problem statement exists only in a message someone scrolled past.
+- **`prototype-brief.md`** — Step 6 reads it from a cold context. It declares which gaps
+  are deliberate, and a verifier that cannot see it reports every intentional dead end
+  as a defect.
+- **`README.md`** — write the Step 7 spec pack table here, so the folder says what state
+  it is in without anyone opening six files or reconstructing it from a lost session.
 
 Step 6 edits `prototype.html` in place across rounds rather than writing
 `prototype-v2.html`; `verification.md` carries the round log, so the history is there
 without a directory of near-identical files.
+
+Keep separate features in separate folders. One folder holding two specs is how a
+requirement from one ends up in the other's test pass.
 
 Ask before writing outside the current directory, and never overwrite an existing spec
 without showing what changes.
@@ -207,9 +254,11 @@ without showing what changes.
 
 ## Notes
 
-- The chain is resumable. If a PRD already exists, start at Step 3 or 4 with that file
-  as input rather than regenerating it. If a prototype, stories, and scenarios all
-  already exist, start at Step 6 — verification is worth running on its own.
+- The chain is resumable, and the spec folder is what makes it resumable. Point the
+  command at an existing `specs/<slug>/`, read what is there, and continue from the
+  first missing artifact rather than regenerating what exists — a PRD already in the
+  folder means starting at Step 3 or 4; a prototype, stories, and scenarios all present
+  means starting at Step 6, which is worth running on its own.
 - Never regenerate an approved PRD to fix a downstream gap. Edit it, and say what
   changed — the PRD is the spine, and a silent rewrite invalidates every trace to it.
 - If the user wants only one artifact, invoke that skill directly. This command is for

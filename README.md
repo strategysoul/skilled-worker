@@ -91,11 +91,29 @@ The command is explicit, and runs the whole chain with a review stop after each 
 /spec-feature onboarding form for new agency accounts
 ```
 
-It goes problem framing → PRD → prototype → stories → test pass → verification, writing
-each artifact to `specs/<feature>/` so you can edit them independently. That last step
-runs the stories and scenarios back through the prototype, so the chain ends by telling
-you what the PRD got wrong rather than by handing you four documents that agree with
-each other because nothing ever tested them.
+It goes problem framing → PRD → prototype → stories → test pass → verification. That
+last step runs the stories and scenarios back through the prototype, so the chain ends
+by telling you what the PRD got wrong rather than handing you four documents that agree
+with each other because nothing ever tested them.
+
+Every run makes a folder first and writes each artifact into it as that artifact is
+produced:
+
+```
+specs/agency-sub-account-onboarding/
+├── README.md            # what exists and what state it is in
+├── framing.md           # the agreed problem, before any drafting
+├── PRD.md
+├── prototype.html       # edited in place across verification rounds
+├── prototype-brief.md   # what is fake, what is deliberately excluded
+├── stories.md
+├── test-scenarios.md
+└── verification.md      # coverage, results, findings, round log
+```
+
+Nothing lives only in the conversation, so the chain survives a session ending
+mid-way — point the command at an existing folder and it resumes from the first missing
+artifact instead of regenerating what is already there.
 
 ### What makes these different from a prompt
 
