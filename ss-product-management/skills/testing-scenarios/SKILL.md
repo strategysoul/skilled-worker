@@ -174,3 +174,7 @@ decision.
   concurrency, retries, partial failures, and the second user in the same record.
 - Gaps found here are worth sending back through **prd-drafting** before code is
   written. A test pass is the cheapest review a PRD ever gets.
+- Cheaper still, where a prototype exists: hand the finished pass to
+  **prototype-verification**, which walks the scenarios against it and reports which
+  ones no screen can satisfy. Expect some of what comes back to be a defect in a
+  scenario rather than in the prototype — those corrections are yours to make.

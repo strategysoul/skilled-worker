@@ -1,13 +1,17 @@
 ---
-description: Take a feature idea from problem statement to PRD, prototype, stories, and a test pass — with a checkpoint after each artifact
+description: Take a feature idea from problem statement to PRD, prototype, stories, and a test pass, then run the spec back through the prototype and fix what fails — with a checkpoint after each artifact
 argument-hint: "<feature idea, problem statement, or path to notes>"
 ---
 
 # /spec-feature -- Idea to Sprint-Ready Spec
 
 Runs the product management chain end to end: a PRD, a clickable prototype of its
-riskiest flow, the backlog stories sliced from it, and the test pass that verifies it.
-Each artifact is reviewed before the next one is built on top of it.
+riskiest flow, the backlog stories sliced from it, and the test pass that verifies it —
+then closes the loop by running the stories and scenarios back through the prototype and
+fixing what fails. Each artifact is reviewed before the next one is built on top of it.
+
+The chain is a loop, not a line. Everything from the PRD down is written from a document
+nobody has executed; Step 6 executes it, and what comes back goes into the PRD.
 
 ## Invocation
 
@@ -102,7 +106,50 @@ acceptance-criteria coverage.
 Then report the two-way traceability honestly: spec items with no scenario, and
 scenarios that trace to nothing.
 
-### Step 6: Close the loop
+**Checkpoint.** Confirm the test pass before running it against the prototype.
+
+### Step 6: Verify the prototype against the stories and scenarios
+
+Apply the **prototype-verification** skill with the prototype from Step 3, the stories
+from Step 4, and the scenarios from Step 5.
+
+This is the payoff for building the prototype early. The stories and scenarios were
+written *from* the PRD; checking them against something concrete is the first moment
+anyone finds out whether they agree with each other. Expect failures — a first round
+where everything passes usually means the scenarios only cover happy paths.
+
+**Run this in a fresh context — spawn a subagent.** By this point the conversation holds
+everything Step 3 decided, and a context that knows what each screen was meant to do
+reads it as doing that. A pass awarded to itself is worth nothing, which is the entire
+reason this is a separate skill.
+
+This does not mean starting a new session. Spawn a subagent, which begins with a cold
+context, and pass it the **file paths** — prototype, brief, stories, scenarios — not the
+conversation. Write the brief out first if it is not already a file: without it the
+verifier reports every deliberate dead end as a defect.
+
+Then loop, and keep the roles apart:
+
+1. **prototype-verification** reports findings. It never edits the prototype.
+2. **prototype-creation** fixes only the `PROTO-BUG` items and hands the file back.
+3. Re-verify — every `P0` scenario, not just the ones that failed.
+
+The verification skill holds the stopping rule. Report back after each round:
+
+- `P0` scenarios passing, failing, blocked, not verifiable, and out of scope — as five
+  numbers, not one
+- `PROTO-BUG` items fixed, and anything that regressed on the way
+- `SPEC-GAP` items, which are the real output of this step
+- `TEST-DEFECT` items, with the correction proposed
+
+Skip this step only when Step 3 was skipped. Say so if you do.
+
+**Checkpoint.** Every `SPEC-GAP` is a decision the user has to make. Take them back to
+Step 2 and revise the PRD — then push the change down to the stories and scenarios it
+touches. Do not carry an unresolved contradiction into Step 7; that is the whole reason
+this step exists.
+
+### Step 7: Close the loop
 
 Summarize what came back from the chain that the PRD did not know at the start:
 
@@ -112,12 +159,14 @@ Summarize what came back from the chain that the PRD did not know at the start:
 | Artifact | Path | State |
 | --- | --- | --- |
 | PRD | [path] | [approved / needs input] |
-| Prototype | [path or "skipped — reason"] | [tested / not tested] |
+| Prototype | [path or "skipped — reason"] | [n]/[n] P0 scenarios passing, round [n] |
 | Stories | [path] | [n] stories, [n] blocked |
 | Test scenarios | [path] | [n] scenarios, [n] P0 |
+| Verification report | [path] | [converged / stopped — reason] |
 
 ### Send back to the PRD
-- [Gap, assumption, or contradiction found downstream]
+- [Gap, assumption, or contradiction found downstream — including every SPEC-GAP from
+  Step 6, which is where most of them will have come from]
 
 ### Blocked on a decision
 - [Open question] — [who decides] — [needed by]
@@ -133,9 +182,19 @@ Write each artifact to its own file so it can be reviewed, edited, and versioned
 ```
 specs/<feature-slug>/PRD.md
 specs/<feature-slug>/prototype.html
+specs/<feature-slug>/prototype-brief.md
 specs/<feature-slug>/stories.md
 specs/<feature-slug>/test-scenarios.md
+specs/<feature-slug>/verification.md
 ```
+
+The brief is a file rather than a message because Step 6 reads it from a cold context:
+it is what declares which gaps are deliberate, and a verifier that cannot see it reports
+every intentional dead end as a defect.
+
+Step 6 edits `prototype.html` in place across rounds rather than writing
+`prototype-v2.html`; `verification.md` carries the round log, so the history is there
+without a directory of near-identical files.
 
 Ask before writing outside the current directory, and never overwrite an existing spec
 without showing what changes.
@@ -149,7 +208,8 @@ without showing what changes.
 ## Notes
 
 - The chain is resumable. If a PRD already exists, start at Step 3 or 4 with that file
-  as input rather than regenerating it.
+  as input rather than regenerating it. If a prototype, stories, and scenarios all
+  already exist, start at Step 6 — verification is worth running on its own.
 - Never regenerate an approved PRD to fix a downstream gap. Edit it, and say what
   changed — the PRD is the spine, and a silent rewrite invalidates every trace to it.
 - If the user wants only one artifact, invoke that skill directly. This command is for

@@ -180,3 +180,6 @@ the product in a shippable state.
   timebox and a stated question to answer.
 - Hand acceptance criteria to **testing-scenarios** to expand into a full test pass.
   Hand a UI-heavy story to **prototype-creation** before committing to a design.
+- Where a prototype already exists, hand the finished stories to
+  **prototype-verification** to be checked against it. Criteria that no screen can
+  satisfy are found there, before an engineer commits a sprint to them.
