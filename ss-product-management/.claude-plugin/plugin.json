@@ -1,11 +1,11 @@
 {
   "name": "ss-product-management",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Product management skills: discovery, strategy, requirements, prioritization, and delivery workflows.",
   "author": {
     "name": "Sweta",
     "url": "https://github.com/strategysoul"
   },
-  "keywords": ["product-management", "discovery", "strategy", "prd", "prioritization"],
+  "keywords": ["product-management", "discovery", "research", "strategy", "prd", "prioritization"],
   "license": "MIT"
 }
