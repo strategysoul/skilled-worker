@@ -7,7 +7,7 @@ Generic prompting gives you text. A skill gives you a repeatable process: the sa
 framework, the same output shape, every time you ask. Ask for a PRD and you get the
 same nine sections, with the questions you skipped marked as skipped, every time.
 
-**Early days — two plugins work today.** `ss-product-management` has six skills and a
+**Early days — two plugins work today.** `ss-product-management` has seven skills and a
 command; `ss-ai-learning` has five. The other two are published as empty scaffolds so
 the structure is visible; they install cleanly but do nothing yet. Watch or star the
 repo if you want
@@ -17,7 +17,7 @@ to know when they land.
 
 | Plugin | What it covers | Status |
 | --- | --- | --- |
-| `ss-product-management` | PRDs, user stories, prototypes, prototype verification, test scenarios, bug reports | **6 skills, 1 command** |
+| `ss-product-management` | Research, PRDs, user stories, prototypes, prototype verification, test scenarios, bug reports | **7 skills, 1 command** |
 | `ss-job-search` | Role targeting, company research, applications, interview prep | Planned — empty |
 | `ss-resume` | Resume review, tailoring to a job description, impact bullets | Planned — empty |
 | `ss-ai-learning` | Study plans, concept explainers, practice projects, tool evaluations, research digests | **5 skills** |
@@ -26,6 +26,7 @@ to know when they land.
 
 | Skill | Produces |
 | --- | --- |
+| `deep-research` | A sourced answer to a question a decision rests on — researched across several angles at once, every finding attacked before it is believed, ranked by confidence, every claim carrying a link and a date |
 | `prd-drafting` | A PRD: problem, users, goals, a two-lane flow walkthrough (what the user sees / how data moves), scoped requirements, metrics, open questions |
 | `user-story-creation` | Takes a PRD (or feature) and produces vertically sliced stories with Given/When/Then criteria, INVEST-checked, sequenced, and traced back to requirements |
 | `prototype-creation` | Takes a PRD (or story) as context and produces a prototype brief plus a single-file clickable HTML prototype or wireframe spec |
@@ -35,6 +36,17 @@ to know when they land.
 
 They chain in that order: the PRD is the spine, and the prototype, stories, and test
 pass all read it directly; the test pass feeds bug reports, and so does verification.
+`deep-research` sits upstream of all of it — it answers the questions a PRD would
+otherwise assume, and its findings land in the PRD carrying their sources.
+
+`deep-research` is built around one idea: research that a decision rests on has to be
+auditable. It splits a question into several angles and researches them in parallel
+contexts, so agreement between angles means something; it traces repeated claims back
+past the citations, because three articles quoting one press release are one source; and
+it sends every finding to a skeptic in a fresh context whose job is to disprove it.
+What survives is ranked by confidence, contradictions stay contradictions rather than
+being averaged into a number no source supports, and what was refuted stays visible with
+its reason. Then it stops and waits for you.
 
 Then it loops. Once the stories and scenarios exist, `prototype-verification` walks them
 against the prototype and sorts every failure into three piles: the prototype is wrong
