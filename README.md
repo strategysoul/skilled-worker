@@ -7,17 +7,16 @@ Generic prompting gives you text. A skill gives you a repeatable process: the sa
 framework, the same output shape, every time you ask. Ask for a PRD and you get the
 same nine sections, with the questions you skipped marked as skipped, every time.
 
-**Early days — two plugins work today.** `ss-product-management` has seven skills and a
+**Early days — two plugins work today.** `ss-product-management` has eight skills and a
 command; `ss-ai-learning` has five. The other two are published as empty scaffolds so
 the structure is visible; they install cleanly but do nothing yet. Watch or star the
-repo if you want
-to know when they land.
+repo if you want to know when they land.
 
 ## Plugins
 
 | Plugin | What it covers | Status |
 | --- | --- | --- |
-| `ss-product-management` | Research, PRDs, user stories, prototypes, prototype verification, test scenarios, bug reports | **7 skills, 1 command** |
+| `ss-product-management` | Research, PRDs, user stories, prototypes, prototype verification, test scenarios, e2e runs, bug reports | **8 skills, 1 command** |
 | `ss-job-search` | Role targeting, company research, applications, interview prep | Planned — empty |
 | `ss-resume` | Resume review, tailoring to a job description, impact bullets | Planned — empty |
 | `ss-ai-learning` | Study plans, concept explainers, practice projects, tool evaluations, research digests | **5 skills** |
@@ -32,10 +31,12 @@ to know when they land.
 | `prototype-creation` | Takes a PRD (or story) as context and produces a prototype brief plus a single-file clickable HTML prototype or wireframe spec |
 | `prototype-verification` | Checks a prototype against the stories and scenarios it should satisfy — coverage map, scenario walk-through, and every failure sorted into prototype defect, spec gap, or bad scenario |
 | `testing-scenarios` | Takes a PRD (or story) and produces a prioritized test pass — happy paths, boundaries, failures, permissions, state transitions — with a traceability table |
+| `e2e-testing` | Executes a test pass against a running dev build in a real browser — scenario results with screenshot, console and network evidence, flaky calls made honestly, and a bug report per failure |
 | `bug-report` | A reproducible bug report with expected vs actual, evidence, and separate severity/priority |
 
 They chain in that order: the PRD is the spine, and the prototype, stories, and test
-pass all read it directly; the test pass feeds bug reports, and so does verification.
+pass all read it directly; the test pass is executed by `e2e-testing` once there is a
+build to run it against, and both that and verification feed bug reports.
 `deep-research` sits upstream of all of it — it answers the questions a PRD would
 otherwise assume, and its findings land in the PRD carrying their sources.
 
@@ -62,6 +63,16 @@ that, so it never grades its own work: the verifier reports and never edits, the
 fixes and never self-certifies. The report also states what it could not check — a
 prototype hardcodes its data, so concurrency, retries, and persistence come back as
 `not verifiable here` rather than as a pass.
+
+`e2e-testing` is the other end of that: once a build exists, it drives a real browser
+through the same scenarios and reports what the build actually does. It runs against
+**local dev only** — it checks the target before the first click and stops if the URL is
+anything else, because e2e scenarios submit forms, mutate records and trigger emails,
+and a shared environment is someone else's data. It captures a screenshot, the console
+and the failed requests for every failure; it reports a scenario that failed and then
+passed as flaky rather than as a pass; and it never edits the app or the scenario to get
+a better number. Without a browser tool it says so and stops, instead of reading the
+code and describing what would probably happen.
 
 ### `ss-product-management` commands
 

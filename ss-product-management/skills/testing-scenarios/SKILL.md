@@ -174,7 +174,11 @@ decision.
   concurrency, retries, partial failures, and the second user in the same record.
 - Gaps found here are worth sending back through **prd-drafting** before code is
   written. A test pass is the cheapest review a PRD ever gets.
-- Cheaper still, where a prototype exists: hand the finished pass to
+- This skill writes the pass; it does not run it. Hand the finished pass to
+  **e2e-testing** to be executed against a running dev build, and expect some of what
+  comes back to be a defect in a scenario rather than in the build — those corrections
+  are yours.
+- Cheaper still, and earlier: where a prototype exists, hand the pass to
   **prototype-verification**, which walks the scenarios against it and reports which
   ones no screen can satisfy. Expect some of what comes back to be a defect in a
   scenario rather than in the prototype — those corrections are yours to make.
