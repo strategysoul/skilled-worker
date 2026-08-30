@@ -232,6 +232,10 @@ what they mean for the decision. Not the whole report.
 - To digest a single paper or release you already have, use **ai-research-digest**
   instead — this skill is for going and finding the sources. To decide whether to adopt
   a specific tool, use **ai-tool-evaluation**, which tests it against your own data.
+- To put the findings in front of leadership, hand the report to
+  **document-presentation**, which turns it into a one-page recommendation. The
+  confidence tiers carry across: a reason resting on a low-confidence finding must not
+  arrive on that page as settled.
 - Findings that bear on a spec belong in the PRD's open questions via **prd-drafting**,
   with the link and date carried across. A fact that arrives in a spec without its
   source becomes an assumption within a month.
