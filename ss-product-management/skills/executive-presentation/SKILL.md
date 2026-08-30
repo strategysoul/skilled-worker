@@ -1,9 +1,9 @@
 ---
-name: document-presentation
+name: executive-presentation
 description: "Turn an analysis, report, or document into a one-page recommendation for senior leadership — the recommendation first, then the reasoning with its numbers and sources, the risks of acting and of doing nothing, and the next steps. Use when the user needs to present findings to executives or a leadership team, wants an executive summary or a decision memo or a recommendation page, asks how to pitch or land something upward, or has an analysis that needs to become an ask."
 ---
 
-# Document Presentation — R3N
+# Executive Presentation — R3N
 
 Recommendation · Reason · Risk · Next steps
 

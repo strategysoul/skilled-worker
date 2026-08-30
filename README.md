@@ -32,7 +32,7 @@ repo if you want to know when they land.
 | `prototype-verification` | Checks a prototype against the stories and scenarios it should satisfy — coverage map, scenario walk-through, and every failure sorted into prototype defect, spec gap, or bad scenario |
 | `testing-scenarios` | Takes a PRD (or story) and produces a prioritized test pass — happy paths, boundaries, failures, permissions, state transitions — with a traceability table |
 | `e2e-testing` | Executes a test pass in a real browser against a running build — local, or a preview/PR deployment for people who do not run it locally — scenario results with screenshot, console and network evidence, flaky calls made honestly, and a bug report per failure |
-| `document-presentation` | Turns an analysis into a one-page recommendation for senior leadership — R3N: the recommendation first, the reasoning with its numbers and sources, the risk of acting *and* of doing nothing, and startable next steps |
+| `executive-presentation` | Turns an analysis into a one-page recommendation for senior leadership — R3N: the recommendation first, the reasoning with its numbers and sources, the risk of acting *and* of doing nothing, and startable next steps |
 | `bug-report` | A reproducible bug report with expected vs actual, evidence, and separate severity/priority |
 
 They chain in that order: the PRD is the spine, and the prototype, stories, and test
@@ -78,7 +78,7 @@ that failed and then passed as flaky rather than as a pass; and it never edits t
 or the scenario to get a better number. Without a browser tool it says so and stops,
 instead of reading the code and describing what would probably happen.
 
-`document-presentation` is where the chain comes out. It takes an analysis — research,
+`executive-presentation` is where the chain comes out. It takes an analysis — research,
 a test pass, a PRD, a spreadsheet — and turns it into the page a senior audience will
 actually read: the recommendation first, as a decision specific enough to refuse, then
 at most three reasons each leading with a number that carries its source and its
